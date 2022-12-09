@@ -1,24 +1,23 @@
 import java.util.Scanner;
-
+111
 public class Main {
 
     public static void main(String[] args) {
 
-        Calculator calculator = new Calculator();
-        Scanner sc = new Scanner(System.in);
+        Calculator calculator = new Calculator("", 0);
 
         //Запрашиваем количество людей и помещаем в calculator.numberOfPeople.
         System.out.print("На сколько человек разделить счет? ");
-        getNumberOfPeople(calculator, sc);
+        getNumberOfPeople(calculator);
 
         //Выполняем основной цикл пока isExit() == false
         do {
             System.out.println("Введите название нового товара:");
-            addNewProductName(calculator, sc);
+            addNewProductName(calculator);
             System.out.println("Введите цену товара в формате \"рубли,копейки\"");
-            addNewProductPrice(calculator, sc);
+            addNewProductPrice(calculator);
             System.out.printf("Вы добавили товар: %s с ценой %.2f %s\n", calculator.currentProduct, calculator.currentPrice, wordRoubleEnding(calculator.currentPrice));
-        } while (!isExit(sc));
+        } while (!isExit());
 
         //Выводим результат
         printResult(calculator);
@@ -26,7 +25,8 @@ public class Main {
 
     //Метод getNumberOfPeople() запрашивает ввод с консоли значения и помещает его в calculator.numberOfPeople,
     // если значение меньше 1 или не является целым числом, то запрашивает повторно.
-    public static void getNumberOfPeople(Calculator calculator, Scanner sc) {
+    public static void getNumberOfPeople(Calculator calculator) {
+        Scanner sc = new Scanner(System.in);
         do {
             System.out.println("Введите целое число больше 1.");
             while (!sc.hasNextInt()) {
@@ -38,7 +38,8 @@ public class Main {
     }
 
     // Метод addNewProductName() запрашивает ввод названия товара и добавляет его в калькулятор
-    public static void addNewProductName(Calculator calculator, Scanner sc) {
+    public static void addNewProductName(Calculator calculator) {
+        Scanner sc = new Scanner(System.in);
         //Запрашиваем название товара "
         calculator.currentProduct = sc.next();
         //Добавляем название товара в калькулятор
@@ -46,7 +47,8 @@ public class Main {
     }
 
     //Метод addNewProductPrice() запрашивает цену товара и добавляет ее в калькулятор.
-    public static void addNewProductPrice(Calculator calculator, Scanner sc) {
+    public static void addNewProductPrice(Calculator calculator) {
+        Scanner sc = new Scanner(System.in);
         //Запрашиваем цену товара в нужном формате, если формат неверный - выводим ошибку и запрашиваем повторно.
         while (!sc.hasNextDouble()) {
             System.out.println("Неверный формат цены!\nВведите цену товара в формате \"рубли,копейки\"");
@@ -58,7 +60,8 @@ public class Main {
     }
 
     //Метод isExit() возвращает true, если ввели "завершить" иначе возвражает false
-    public static boolean isExit(Scanner sc) {
+    public static boolean isExit() {
+        Scanner sc = new Scanner(System.in);
         //Запрашиваем надо ли добавить новый товар или завершить.
         System.out.println("Для добавления нового товара введите любой символ, для завершения введите \"завершить\".");
         //Если ввели "завершить", то возвращаем true иначе возвращаем false
@@ -76,7 +79,7 @@ public class Main {
     public static String wordRoubleEnding(double price) {
         int roundedPrice = (int) Math.floor(price);
         String roubleEnding;
-        if (roundedPrice % 100 >= 11 && roundedPrice % 100 <= 14) {
+        if (roundedPrice % 100 >= 11 && roundedPrice % 100 <= 19) {
             roubleEnding = "рублей";
         } else {
             switch (roundedPrice % 10) {
